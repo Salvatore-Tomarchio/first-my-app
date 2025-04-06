@@ -1,21 +1,39 @@
-import React from "react"
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
+import { Navbar, Container, Form, Button, Nav } from 'react-bootstrap';
+import { ThemeContext } from '../App';
+import { useContext } from 'react';
+import { Link } from 'react-router-dom';
 
-export default function MyNav() {
-    return (
-      <Navbar expand="lg" className="bg-body-tertiary">
-        <Container>
-          <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto">
-              <Nav.Link href="#">About</Nav.Link>
-              <Nav.Link href="#">Browse</Nav.Link>
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
-    )
-}
+const MyNav = ({ searchQuery, setSearchQuery }) => {
+  const { theme, setTheme } = useContext(ThemeContext);
+
+  return (
+    <Navbar bg={theme} variant={theme} expand="lg">
+      <Container>
+        <Navbar.Brand as={Link} to="/">EpiBooks</Navbar.Brand>
+        <Nav className="me-auto">
+          <Nav.Link as={Link} to="/">Home</Nav.Link>
+          <Nav.Link as={Link} to="/contacts">Contattaci</Nav.Link>
+          <Nav.Link as={Link} to="/about">Chi siamo</Nav.Link>
+        </Nav>
+        <Form className="d-flex">
+          <Form.Control
+            type="search"
+            placeholder="Cerca un libro"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="me-2"
+            data-testid="search-input"
+          />
+          <Button
+            variant={theme === 'dark' ? 'light' : 'dark'}
+            onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
+          >
+            {theme === 'light' ? 'DARK' : 'LIGHT'}
+          </Button>
+        </Form>
+      </Container>
+    </Navbar>
+  );
+};
+
+export default MyNav;

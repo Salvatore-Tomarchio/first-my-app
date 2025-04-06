@@ -1,24 +1,14 @@
-import React from "react"
-import Pagination from 'react-bootstrap/Pagination';
+import React from 'react';
+import { Container } from 'react-bootstrap';
 
-export default function MyFooter() {
-    return (
-        <Pagination>
-        <Pagination.First />
-        <Pagination.Prev />
-        <Pagination.Item>{1}</Pagination.Item>
-        <Pagination.Ellipsis />
-  
-        <Pagination.Item>{10}</Pagination.Item>
-        <Pagination.Item>{11}</Pagination.Item>
-        <Pagination.Item active>{12}</Pagination.Item>
-        <Pagination.Item>{13}</Pagination.Item>
-        <Pagination.Item disabled>{14}</Pagination.Item>
-  
-        <Pagination.Ellipsis />
-        <Pagination.Item>{20}</Pagination.Item>
-        <Pagination.Next />
-        <Pagination.Last />
-      </Pagination>
-    )
-}
+const MyFooter = () => {
+  return (
+    <footer className="py-3 mt-5">
+      <Container className="text-center">
+        <small>2025 EpiBooks</small>
+      </Container>
+    </footer>
+  );
+};
+
+export default MyFooter;

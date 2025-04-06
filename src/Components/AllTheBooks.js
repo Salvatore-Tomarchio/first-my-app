@@ -1,21 +1,37 @@
-import fantasy from '../data/fantasy.json';
-import {Card, Row, Col} from 'react-bootstrap'
+import React, { useState } from "react";
+import fantasy from "../data/fantasy.json";
+import { Row, Col } from "react-bootstrap";
+import SingleBook from "./SingleBook";
+import CommentArea from "./CommentArea";
 
-export default function AllTheBooks() {
- return(
-    <Row className="g-2">
-      {fantasy.map((book) => {
-        return (
-          <Col xs={12} md={4} key={book.asin}>
-            <Card className="book-cover d-flex flex-column">
-              <Card.Img variant="top" src={book.img} />
-              <Card.Body>
-                <Card.Title>{book.title}</Card.Title>
-              </Card.Body>
-            </Card>
-          </Col>
-        )
-      })}
+const AllTheBooks = ({ searchQuery, token }) => {
+  const [selectedAsin, setSelectedAsin] = useState(null);
+
+  return (
+    <Row className="g-3 mt-3">
+      <Col md={8}>
+        <Row className="g-3">
+          {fantasy
+            .filter((b) =>
+              b.title.toLowerCase().includes(searchQuery.toLowerCase())
+            )
+            .map((book) => (
+              <Col xs={12} md={6} lg={4} key={book.asin}>
+                <SingleBook
+                  book={book}
+                  selectedAsin={selectedAsin}
+                  setSelectedAsin={setSelectedAsin}
+                />
+              </Col>
+            ))}
+        </Row>
+      </Col>
+
+      <Col md={4}>
+        <CommentArea selectedAsin={selectedAsin} token={token} />
+      </Col>
     </Row>
- )
-}
+  );
+};
+
+export default AllTheBooks;
